@@ -1,9 +1,9 @@
 from logica_tienda import protocolo_cliente, protocolo_vendedor
 from administracion_inventario import crear_tablas_datos
+import getpass
 
 print('Hola tú debes ser el dueño ¿Cómo estás? para terminar la interacción tu rol debe ser 0')
-clave = input('ingrese la clave del inventario ')
-print(clave)
+clave = getpass.getpass('ingrese la clave del inventario ')
 intencion = '2'
 id = None
 while intencion != '0':
@@ -15,8 +15,7 @@ while intencion != '0':
 
     elif intencion == '2':
         intencion = input('qué quieres hacer hoy:\n inserta\n (1) si quieres modificar el inventario,\n (2) revisar las devoluciones\n (3) si quieres verificar una compra\n')
-        contraseña = input('ingrese la clave ')
-        print(contraseña, clave)
+        contraseña = getpass.getpass('ingrese la clave ')
         if contraseña == clave:
             print('contraseña correcta')
             protocolo_vendedor(intencion,id)

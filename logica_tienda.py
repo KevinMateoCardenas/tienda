@@ -16,14 +16,17 @@ def protocolo_cliente(intencion):
     if intencion == '2':
         id = input('cual es el id producto que quieres devolver: ')
         hacer_devolucion(id)
-    
+    return id
+
 def protocolo_vendedor(intencion, id):
     if intencion == '1':
         print('estos son los productos que tenemos: ')
         mostrar_productos("SELECT * FROM Productos")
         intencion = input('qué quieres hacer hoy:\n inserta\n (1) si quieres agregar algun producto,\n (2) si quieres eliminar algún producto, \n (3) si quiere modificar algún producto ya existente\n')
-        modificar_tabla(intencion)    
-    if intencion == '3':
+        modificar_tabla(intencion)   
+    elif intencion == '3':
+        hacer_devolucion(id) 
+    elif intencion == '3':
         conn = sqlite3.connect('tienda.db')
         cursor = conn.cursor()
         cantidad_row = cursor.execute("SELECT cantidad FROM productos WHERE id = ?", (id,)).fetchone()
@@ -32,5 +35,7 @@ def protocolo_vendedor(intencion, id):
             mostrar_productos('UPDATE productos SET cantidad = {} WHERE id = {}'.format(cantidad -1, id))
             conn.commit()
             conn.close()
+            print('venta realizada exitosamente')
         else:
             print('El producto con el ID {} no existe en la tabla de productos'.format(id))
+        

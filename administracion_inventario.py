@@ -80,11 +80,9 @@ def hacer_devolucion(id):
     try:
         conn = sqlite3.connect('tienda.db')
         cursor = conn.cursor()
-
         cantidad = int(cursor.execute("SELECT cantidad FROM productos WHERE id = ?", (id,)).fetchone()[0])
         cursor.execute('UPDATE productos SET cantidad = ? WHERE id = ?', (cantidad + 1, id))
         conn.commit()
-
         conn.close()
     except Exception as E:
         print('devolución no exitosa ', E)
